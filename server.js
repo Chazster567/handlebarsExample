@@ -1,13 +1,19 @@
 var express = require('express');
 var app = express();
-var texts = 'hello';
+var handlebars = require('express-handlebars');
 
-for(i = 0; i < 10; i++) {
-    texts.length
-}
+app.set('view engine', 'hbs');
+app.engine('hbs', handlebars({
+    layoutDir: __dirname + '/views/layouts',
+    extname: 'hbs'
+}))
 
-app.get('/', (req, res)=>{
-    res.send(texts)
+app.get('/', (req, res) => {
+    res.render('index', { layout: 'main' });
+})
+
+app.get('/about', (req, res) => {
+    res.render('about', { layout: 'main' });
 })
 
 //listening for requests on port 3000
